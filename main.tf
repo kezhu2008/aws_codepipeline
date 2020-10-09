@@ -5,6 +5,7 @@ provider "aws" {
 }
 
 
+
 resource "aws_codepipeline" "codepipeline" {
   name     = var.pipeline_name
   role_arn = aws_iam_role.codepipeline_role.arn
@@ -35,7 +36,10 @@ resource "aws_codepipeline" "codepipeline" {
   }
 }
 
-
+resource "aws_s3_bucket" "codepipeline_bucket" {
+  bucket = var.pipeline_s3_bucket
+  acl    = "private"
+}
 
 resource "aws_iam_role" "codepipeline_role" {
   name = var.pipeline_role_name
