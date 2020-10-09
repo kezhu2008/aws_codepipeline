@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
-  name = var.codebuild_project.name
+  name = var.codebuild_project_name
   artifacts = {
     type = "NO_ARTIFACTS"
   }
