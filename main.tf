@@ -55,7 +55,7 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["source_output"]
 
       configuration  = {
-        Repo       = "test_code_commit"
+        RepositoryName       = "test_code_commit"
         Branch     = "master"
         PollForSourceChanges = false
       }
@@ -75,7 +75,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = "test"
+        ProjectName = var.codebuild_project_name
       }
     }
   }
