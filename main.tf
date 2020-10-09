@@ -156,7 +156,7 @@ resource "aws_iam_role_policy" "pipeline_policy" {
         "Sid": "Stmt1602222091816",
         "Action": "s3:*",
         "Effect": "Allow",
-        "Resource": "${aws_s3_bucket.codepipeline_bucket.arn}/*"
+        "Resource": "aws_s3_bucket.codepipeline_bucket.arn"
       }
     ]
   }
