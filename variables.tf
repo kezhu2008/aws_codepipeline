@@ -1,6 +1,6 @@
 variable "aws_region" {
   type  = string
-  default = "ap_southeast_2"
+  default = "ap-southeast-2"
 }
 
 variable "pipeline_name" {
