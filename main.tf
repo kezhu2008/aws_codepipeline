@@ -136,5 +136,5 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "codepipeline_role-attach" {
   role       = aws_iam_role.codepipeline_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitPowerUser"
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitFullAccess"
 }
