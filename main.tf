@@ -142,7 +142,7 @@ resource "aws_iam_role" "codepipeline_role" {
       {
         "Effect": "Allow",
         "Principal": {
-          "Service": "events.amazonaws.comm"
+          "Service": "events.amazonaws.com"
         },
         "Action": "sts:AssumeRole"
       }
@@ -224,4 +224,5 @@ resource "aws_cloudwatch_event_target" "start_pipeline" {
   target_id = "start_pipeline"
   rule      = aws_cloudwatch_event_rule.codecommit_commit.name
   arn       = aws_codepipeline.codepipeline.arn
+  role_arn  = aws_iam_role.codepipeline_role.arn
 }
