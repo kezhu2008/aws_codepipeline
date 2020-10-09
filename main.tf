@@ -6,7 +6,7 @@ provider "aws" {
 
 
 data "template_file" "buildspec" {
-  template = "${file("buildspec.yml")}"
+  template = "${file("data/buildspec.yml")}"
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
