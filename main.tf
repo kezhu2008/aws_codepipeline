@@ -5,11 +5,11 @@ provider "aws" {
 }
 
 
-data "template_file" "buildspec" {
+data "file" "buildspec" {
   template = "${file("data/buildspec.yml")}"
 }
 
-data "template_file" "pipeline_policy" {
+data "file" "pipeline_policy" {
   template = "${file("data/pipeline_role_policy.json")}"
 }
 
@@ -117,5 +117,6 @@ EOF
 
 resource "aws_iam_role" "codepipeline_role" {
   name = var.pipeline_role_name
+
   assume_role_policy = data.template_file.pipeline_policy.rendered
 }
