@@ -22,3 +22,8 @@ variable "pipeline_role_policy_name" {
   type = string
   default = "default_pipeline_role_policy"
 }
+
+variable "codebuild_project_name" {
+  type = string
+  default = "default_codebuild_project"
+}
