@@ -27,7 +27,7 @@ resource "aws_codepipeline" "codepipeline" {
 
       output_artifacts = ["source_output"]
 
-      RepositoryName = {
+      configuration  = {
         Repo       = "test_code_commit"
         Branch     = "master"
         PollForSourceChanges = false

@@ -17,3 +17,8 @@ variable "pipeline_role_name" {
   type  = string
   default = "default_pipeline_role"
 }
+
+variable "pipeline_role_policy_name" {
+  type = string
+  default = "default_pipeline_role_policy"
+}
