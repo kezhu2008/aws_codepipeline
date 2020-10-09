@@ -10,7 +10,7 @@ variable "pipeline_name" {
 
 variable "pipeline_s3_bucket" {
   type  = string
-  default = "s3_coderepo"
+  default = "s3-coderepo"
 }
 
 variable "pipeline_role_name" {
