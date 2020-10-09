@@ -5,12 +5,12 @@ provider "aws" {
 }
 
 
-data "local_file" "buildspec" {
-  filename = "${file("data/buildspec.yml")}"
+data "template_file" "buildspec" {
+  template = "${file("data/buildspec.yml")}"
 }
 
-data "local_file" "pipeline_policy" {
-  filename = "${file("data/pipeline_role_policy.json")}"
+data "template_file" "pipeline_policy" {
+  template = "${file("data/pipeline_role_policy.json")}"
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
@@ -36,7 +36,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   source {
     type            = "CODEPIPELINE"
-    buildspec       = data.local_file.buildspec.content
+    buildspec       = data.template_file.buildspec.rendered
   }
 
 
@@ -118,5 +118,5 @@ EOF
 resource "aws_iam_role" "codepipeline_role" {
   name = var.pipeline_role_name
 
-  assume_role_policy = data.local_file.pipeline_policy.content
+  assume_role_policy = data.template_file.pipeline_policy.rendered
 }

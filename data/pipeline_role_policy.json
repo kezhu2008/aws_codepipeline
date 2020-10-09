@@ -95,7 +95,7 @@
         "iam:ListSSHPublicKeys",
         "iam:ListServiceSpecificCredentials"
       ],
-      "Resource": "arn:aws:iam::*:user/${aws:username}"
+      "Resource": "arn:aws:iam::*:user/$${aws:username}"
     },
     {
       "Sid": "IAMUserSSHKeys",
@@ -107,7 +107,7 @@
         "iam:UpdateSSHPublicKey",
         "iam:UploadSSHPublicKey"
       ],
-      "Resource": "arn:aws:iam::*:user/${aws:username}"
+      "Resource": "arn:aws:iam::*:user/$${aws:username}"
     },
     {
       "Sid": "IAMSelfManageServiceSpecificCredentials",
@@ -118,7 +118,7 @@
         "iam:DeleteServiceSpecificCredential",
         "iam:ResetServiceSpecificCredential"
       ],
-      "Resource": "arn:aws:iam::*:user/${aws:username}"
+      "Resource": "arn:aws:iam::*:user/$${aws:username}"
     },
     {
       "Sid": "CodeStarNotificationsReadWriteAccess",
