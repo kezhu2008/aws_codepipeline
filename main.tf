@@ -149,17 +149,17 @@ resource "aws_iam_role_policy" "pipeline_policy" {
   role = aws_iam_role.codepipeline_role.id
 
   policy = <<EOF
-  {
+{
     "Version": "2012-10-17",
     "Statement": [
       {
         "Sid": "Stmt1602222091816",
         "Action": "s3:*",
         "Effect": "Allow",
-        "Resource": "aws_s3_bucket.codepipeline_bucket.arn"
+        "Resource": "${aws_s3_bucket.codepipeline_bucket.arn}/*"
       }
     ]
-  }
+}
 EOF
 }
 
