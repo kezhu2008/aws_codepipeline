@@ -6,11 +6,11 @@ provider "aws" {
 
 
 data "local_file" "buildspec" {
-  template = "${file("data/buildspec.yml")}"
+  filename = "${file("data/buildspec.yml")}"
 }
 
 data "local_file" "pipeline_policy" {
-  template = "${file("data/pipeline_role_policy.json")}"
+  filename = "${file("data/pipeline_role_policy.json")}"
 }
 
 resource "aws_codebuild_project" "codebuild_project" {
