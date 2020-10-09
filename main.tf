@@ -64,7 +64,7 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration  = {
         RepositoryName       = "test_code_commit"
-        Branch     = "master"
+        BranchName     = "master"
         PollForSourceChanges = false
       }
     }
