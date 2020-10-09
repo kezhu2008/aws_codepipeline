@@ -5,11 +5,11 @@ provider "aws" {
 }
 
 
-data "file" "buildspec" {
+data "local_file" "buildspec" {
   template = "${file("data/buildspec.yml")}"
 }
 
-data "file" "pipeline_policy" {
+data "local_file" "pipeline_policy" {
   template = "${file("data/pipeline_role_policy.json")}"
 }
 
