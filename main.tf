@@ -128,6 +128,8 @@ resource "aws_iam_role" "codepipeline_role" {
           "Service": "codepipeline.amazonaws.com"
         },
         "Action": "sts:AssumeRole"
+      }
+    ]
   }
 EOF
 }
