@@ -27,3 +27,7 @@ variable "codebuild_project_name" {
   type = string
   default = "default_codebuild_project"
 }
+
+variable "codecommit_arn" {
+  type = string
+}

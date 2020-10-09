@@ -138,6 +138,13 @@ resource "aws_iam_role" "codepipeline_role" {
           "Service": "codebuild.amazonaws.com"
         },
         "Action": "sts:AssumeRole"
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "events.amazonaws.comm"
+        },
+        "Action": "sts:AssumeRole"
       }
     ]
 }
@@ -157,7 +164,15 @@ resource "aws_iam_role_policy" "pipeline_policy" {
         "Action": "s3:*",
         "Effect": "Allow",
         "Resource": "${aws_s3_bucket.codepipeline_bucket.arn}/*"
-      }
+      },{
+            "Effect": "Allow",
+            "Action": [
+                "codepipeline:StartPipelineExecution"
+            ],
+            "Resource": [
+                "${aws_codepipeline.codepipeline.arn}"
+            ]
+        }
     ]
 }
 EOF
@@ -176,4 +191,37 @@ resource "aws_iam_role_policy_attachment" "codepipeline_role-codebuild-attach" {
 resource "aws_iam_role_policy_attachment" "codepipeline_role-cloudwatch-attach" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
+
+resource "aws_cloudwatch_event_rule" "codecommit_commit" {
+  name        = "code-commit"
+  description = "Code committed"
+
+  event_pattern = <<PATTERN
+{
+     "source":[
+        "aws.codecommit"
+     ],
+     "detail-type":[
+        "CodeCommit Repository State Change"
+     ],
+     "resources":[
+        "${var.codecommit_arn}"
+     ],
+     "detail":{
+        "referenceType":[
+           "branch"
+        ],
+        "referenceName":[
+           "master"
+        ]
+     }
+}
+PATTERN
+}
+
+resource "aws_cloudwatch_event_target" "start_pipeline" {
+  target_id = "start_pipeline"
+  rule      = aws_cloudwatch_event_rule.codecommit_commit.name
+  arn       = aws_codepipeline.codepipeline.arn
 }
