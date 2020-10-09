@@ -36,7 +36,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   source {
     type            = "CODEPIPELINE"
-    buildspec       = data.template_file.buildspec.rendered
+    buildspec       = data.local_file.buildspec.rendered
   }
 
 
@@ -118,5 +118,5 @@ EOF
 resource "aws_iam_role" "codepipeline_role" {
   name = var.pipeline_role_name
 
-  assume_role_policy = data.template_file.pipeline_policy.rendered
+  assume_role_policy = data.local_file.pipeline_policy.rendered
 }
