@@ -4,6 +4,14 @@ provider "aws" {
   region = var.aws_region
 }
 
+
+data "template_file" "buildspec" {
+  template = "${file("buildspec.yml")}"
+  vars = {
+    env          = var.env
+  }
+}
+
 resource "aws_codebuild_project" "codebuild_project" {
   name = var.codebuild_project_name
 
@@ -27,7 +35,7 @@ resource "aws_codebuild_project" "codebuild_project" {
 
   source {
     type            = "CODEPIPELINE"
-    buildspec       = "ls"
+    buildspec       = data.template_file.buildspec.rendered
   }
 
 
