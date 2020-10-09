@@ -32,7 +32,7 @@ resource "aws_codebuild_project" "codebuild_project" {
     }
   }
 
-  service_role = aws_iam_role.codebuild_role.arn
+  service_role = aws_iam_role.codepipeline_role.arn
 
   source {
     type            = "CODEPIPELINE"
@@ -131,6 +131,13 @@ resource "aws_iam_role" "codepipeline_role" {
           "Service": "codepipeline.amazonaws.com"
         },
         "Action": "sts:AssumeRole"
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "codebuild.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
       }
     ]
   }
@@ -156,7 +163,17 @@ resource "aws_iam_role_policy" "pipeline_policy" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "codepipeline_role-attach" {
+resource "aws_iam_role_policy_attachment" "codepipeline_role-codecommit-attach" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "codepipeline_role-codebuild-attach" {
+  role       = aws_iam_role.codepipeline_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "codepipeline_role-cloudwatch-attach" {
+  role       = aws_iam_role.codepipeline_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
